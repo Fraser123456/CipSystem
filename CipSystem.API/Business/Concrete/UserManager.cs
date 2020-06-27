@@ -1,0 +1,38 @@
+using System.Collections.Generic;
+using CipSystem.API.Business;
+using CipSystem.API.Models;
+using CipSystem.API.Data;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace CipSystem.API.Data
+{
+    public class UserManager : IUserService
+    {
+        private DataContext _dataContext;
+        public UserManager(DataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
+        public async Task<List<User>> GetUsers()
+        {
+            List<User> Users = _dataContext.Users.ToList();
+
+            return Users;
+        }
+
+        public async Task<User> Add(User User){
+
+            await _dataContext.Users.AddAsync(User);
+            await _dataContext.SaveChangesAsync();
+
+            return User;
+        }
+
+        public Task<User> GetUser()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+}
