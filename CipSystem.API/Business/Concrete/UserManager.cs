@@ -30,7 +30,7 @@ namespace CipSystem.API.Data
             return User;
         }
 
-        public Task<User> GetUser()
+        public async Task<User> GetUser()
         {
             throw new System.NotImplementedException();
         }

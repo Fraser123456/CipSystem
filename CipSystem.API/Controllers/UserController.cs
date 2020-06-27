@@ -32,5 +32,12 @@ namespace CipSystem.API.Controllers
             return CreatedAtRoute("GetUser", new {Controller = "users", id = CreatedUser.Id}, CreatedUser);
         }
 
+        [HttpPost("GetUser")]
+        public async Task<IActionResult> AddUser(User User){
+            var CreatedUser = await _userService.Add(User);
+
+            return CreatedAtRoute("GetUser", new {Controller = "users", id = CreatedUser.Id}, CreatedUser);
+        }
+
     }
 }
