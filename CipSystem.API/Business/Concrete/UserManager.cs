@@ -4,6 +4,7 @@ using CipSystem.API.Models;
 using CipSystem.API.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CipSystem.API.Data
 {
@@ -17,12 +18,13 @@ namespace CipSystem.API.Data
 
         public async Task<List<User>> GetUsers()
         {
-            List<User> Users = _dataContext.Users.ToList();
+            List<User> Users = await _dataContext.Users.ToListAsync();
 
             return Users;
         }
 
-        public async Task<User> Add(User User){
+        public async Task<User> Add(User User)
+        {
 
             await _dataContext.Users.AddAsync(User);
             await _dataContext.SaveChangesAsync();
@@ -30,9 +32,12 @@ namespace CipSystem.API.Data
             return User;
         }
 
-        public async Task<User> GetUser()
+        public async Task<User> GetUser(int Id)
         {
-            throw new System.NotImplementedException();
+            User User = await _dataContext.Users.FirstOrDefaultAsync(x => x.Id == Id);
+
+            return User;
         }
+
     }
 }

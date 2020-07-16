@@ -11,32 +11,37 @@ namespace CipSystem.API.Controllers
     public class UserController : ControllerBase
     {
         private IUserService _userService;
-        private string _name;
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetUsers(){
-        //      List<User> Users = _userService.GetUsers();
-
-        //     return ;
-
-        // }
-
         [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser(User User){
             var CreatedUser = await _userService.Add(User);
 
-            return CreatedAtRoute("GetUser", new {Controller = "users", id = CreatedUser.Id}, CreatedUser);
+            return CreatedAtRoute("GetUsers", new {Controller = "user", id = CreatedUser.Id}, CreatedUser);
         }
 
-        [HttpPost("GetUser")]
-        public async Task<IActionResult> AddUser(User User){
-            var CreatedUser = await _userService.Add(User);
+        [HttpGet("GetUsers")]
+        public async Task<IActionResult> GetUsers(){
+            List<User> Users = await _userService.GetUsers();
 
-            return CreatedAtRoute("GetUser", new {Controller = "users", id = CreatedUser.Id}, CreatedUser);
+            return Ok(Users);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(int id){
+
+            User User = await _userService.GetUser(id);
+
+            return Ok(User);
+
+        }
+
+        [HttpGet("GetUser")]
+        public async Task<IActionResult> GetUser(string name){
+            
         }
 
     }

@@ -8,7 +8,7 @@ namespace CipSystem.API.Business
     {
         Task<List<User>> GetUsers();
 
-        Task<User> GetUser();
+        Task<User> GetUser(int Id);
 
         Task<User> Add(User User);
     }

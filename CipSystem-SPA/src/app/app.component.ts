@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'CipSystem-SPA';
-  
+  @Input() LoggedIn: boolean;
+
+  Logged(LoggedIn){
+    this.LoggedIn = LoggedIn;
+  }
+
 }
