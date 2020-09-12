@@ -34,6 +34,7 @@ namespace CipSystem.API
             #region Interface Services
 
             services.AddScoped<IUserService, UserManager>();
+            services.AddScoped<IAuthService, AuthManager>();
 
             #endregion
             

@@ -39,10 +39,5 @@ namespace CipSystem.API.Controllers
 
         }
 
-        [HttpGet("GetUser")]
-        public async Task<IActionResult> GetUser(string name){
-            
-        }
-
     }
 }

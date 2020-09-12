@@ -25,6 +25,12 @@ namespace CipSystem.API.Data
 
         public async Task<User> Add(User User)
         {
+            User userExists = await _dataContext.Users.FirstOrDefaultAsync(x => x.UserName.ToLower() == User.UserName.ToLower());
+
+            if(userExists != null)
+            {
+                throw new System.Exception("User Already Exists");
+            }
 
             await _dataContext.Users.AddAsync(User);
             await _dataContext.SaveChangesAsync();

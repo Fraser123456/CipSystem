@@ -1,10 +1,11 @@
-<h1 style="margin: 20px;">Hello</h1>
+<router-outlet></router-outlet>
+<h1 style="margin: 20px">Hello</h1>
 
 <div *ngIf="!LoggedIn">
-  <h1 style="margin: 20px;">Not Logged In!!!</h1>
+  <h1 style="margin: 20px">Not Logged In!!!</h1>
   <app-login (LoggedIn)="Logged($event)"></app-login>
 </div>
 <div *ngIf="LoggedIn">
-  <h1 style="margin: 20px;">Logged In!!!</h1>
-  <!-- <app-master-ppage></app-master-ppage> -->
+  <h1 style="margin: 20px">Logged In!!!</h1>
+  <app-master-ppage></app-master-ppage>
 </div>
