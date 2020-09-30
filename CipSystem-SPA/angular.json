@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "CipSystem-SPA"
+  "defaultProject": "CipSystem-SPA",
+  "cli": {
+    "analytics": false
+  }
 }

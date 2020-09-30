@@ -29,7 +29,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   LoginUser() {
-    this.authService.login(this.LoginForm).subscribe(
+    let UserLogin = {
+      Username: this.LoginForm.value.Username,
+      Password: this.LoginForm.value.Password,
+    };
+
+    console.log(UserLogin);
+
+    this.authService.login(UserLogin).subscribe(
       (next) => {
         this.alertify.success(this.LoginForm.value.Username + " is logged in.");
       },
