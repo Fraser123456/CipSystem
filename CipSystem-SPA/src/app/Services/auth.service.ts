@@ -12,12 +12,11 @@ export class AuthService {
   baseUrl = environment.apiUrl + "auth/";
 
   login(model: any) {
-    console.log(model);
     return this.http.post(this.baseUrl + "login", model).pipe(
       map((response: any) => {
-        const user = response;
-        if (user) {
-          localStorage.setItem("user", user);
+        if (response) {
+          console.log(response.viewModel);
+          localStorage.setItem("user", JSON.stringify(response.viewModel));
         }
       })
     );

@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using CipSystem.API.Business;
 using CipSystem.API.Models;
 using CipSystem.API.Models.LoginModels;
+using CipSystem.API.Models.ResponseModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CipSystem.API.Controllers
@@ -27,9 +28,15 @@ namespace CipSystem.API.Controllers
                 return Unauthorized();
             }
 
-            return Ok(new
+            return new JsonResult(new BaseResponseModel
             {
-                user
+                Type = "S",
+                ViewModel = new UserLogin
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Name = user.Name
+                },
             });
 
         }

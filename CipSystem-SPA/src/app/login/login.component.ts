@@ -29,22 +29,22 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   LoginUser() {
-    let UserLogin = {
+    const UserLogin = {
       Username: this.LoginForm.value.Username,
       Password: this.LoginForm.value.Password,
     };
 
-    console.log(UserLogin);
-
     this.authService.login(UserLogin).subscribe(
       (next) => {
-        this.alertify.success(this.LoginForm.value.Username + " is logged in.");
+        this.alertify.success("Login Successful.");
+        this.LoggedIn.emit(true);
+        this.router.navigate(["Home"]);
       },
       (error) => {
         this.alertify.error("Username or Password is incorrect");
       },
       () => {
-        this.router.navigate(["/Home"]);
+        this.router.navigate(["Home"]);
       }
     );
     console.log(this.LoginForm.value.Username);
