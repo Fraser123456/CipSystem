@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { AlertifyService } from "../Services/alertify.service";
 import { AuthService } from "../Services/auth.service";
 import { Router } from "@angular/router";
@@ -11,43 +11,70 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   @Output() LoggedIn: EventEmitter<boolean> = new EventEmitter();
-  LoginForm: FormGroup;
-  User: any[];
+  form: FormGroup;
+  private formSubmitAttempt: boolean;
 
   constructor(
-    fb: FormBuilder,
     private alertify: AlertifyService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
   ) {
-    this.LoginForm = fb.group({
-      Username: "",
-      Password: "",
+  }
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
-  ngOnInit() {}
-
-  LoginUser() {
-    const UserLogin = {
-      Username: this.LoginForm.value.Username,
-      Password: this.LoginForm.value.Password,
-    };
-
-    this.authService.login(UserLogin).subscribe(
-      (next) => {
-        this.alertify.success("Login Successful.");
-        this.LoggedIn.emit(true);
-        this.router.navigate(["Home"]);
-      },
-      (error) => {
-        this.alertify.error("Username or Password is incorrect");
-      },
-      () => {
-        this.router.navigate(["Home"]);
-      }
+  isFieldInvalid(field: string) {
+    return (
+      (!this.form.get(field).valid && this.form.get(field).touched) ||
+      (this.form.get(field).untouched && this.formSubmitAttempt)
     );
-    console.log(this.LoginForm.value.Username);
-    this.LoginForm.reset();
   }
+
+  onSubmit() {
+    if (this.form.valid) {
+      this.authService.login(this.form.value).subscribe(
+        (next) => {
+          this.alertify.success("Login Successful.");
+          this.LoggedIn.emit(true);
+          this.router.navigate(["home"]);
+        },
+        (error) => {
+          this.alertify.error("Username or Password is incorrect");
+        },
+        () => {
+          this.router.navigate(["home"]);
+        }// {7}
+      )
+    this.formSubmitAttempt = true;             // {8}
+  }
+}
+
+  // LoginUser() {
+  //   const UserLogin = {
+  //     Username: this.LoginForm.value.Username,
+  //     Password: this.LoginForm.value.Password,
+  //   };
+
+  //   this.authService.login(UserLogin).subscribe(
+  //     (next) => {
+  //       this.alertify.success("Login Successful.");
+  //       this.LoggedIn.emit(true);
+  //       this.router.navigate(["Home"]);
+  //     },
+  //     (error) => {
+  //       this.alertify.error("Username or Password is incorrect");
+  //     },
+  //     () => {
+  //       this.router.navigate(["Home"]);
+  //     }
+  //   );
+  //   console.log(this.LoginForm.value.Username);
+  //   this.LoginForm.reset();
+  // }
 }
