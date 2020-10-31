@@ -50,31 +50,8 @@ export class LoginComponent implements OnInit {
         () => {
           this.router.navigate(["home"]);
         }// {7}
-      )
-    this.formSubmitAttempt = true;             // {8}
+      );
+      this.formSubmitAttempt = true;             // {8}
   }
 }
-
-  // LoginUser() {
-  //   const UserLogin = {
-  //     Username: this.LoginForm.value.Username,
-  //     Password: this.LoginForm.value.Password,
-  //   };
-
-  //   this.authService.login(UserLogin).subscribe(
-  //     (next) => {
-  //       this.alertify.success("Login Successful.");
-  //       this.LoggedIn.emit(true);
-  //       this.router.navigate(["Home"]);
-  //     },
-  //     (error) => {
-  //       this.alertify.error("Username or Password is incorrect");
-  //     },
-  //     () => {
-  //       this.router.navigate(["Home"]);
-  //     }
-  //   );
-  //   console.log(this.LoginForm.value.Username);
-  //   this.LoginForm.reset();
-  // }
 }
